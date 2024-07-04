@@ -59,7 +59,7 @@
             console.log(param)
 
             try {
-              window.webkit.messageHandlers.getAddress_IOS.postMessage(JSON.stringify(param));
+              window.webkit.messageHandlers.getAddress_IOS.postMessage(param);
             } catch (err) {
               alert(err);
             }
