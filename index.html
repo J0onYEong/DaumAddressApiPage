@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0" />
   </head>
   <body onload="sample3_execDaumPostcode()">
-    <div id="wrap" style="display:none;border:1px solid;width:100%;height:100%;margin:5px 0;position:relative"></div>
+    <div id="address_place" style="display:none;border:1px solid;width:100%;height:100%;margin:5px 0;position:relative"></div>
     <script type="text/javascript" charset="UTF-8">
       // 우편번호 찾기 찾기 화면을 넣을 element
-      var element_wrap = document.getElementById('wrap');
+      var address_screen_place = document.getElementById('address_place');
 
       function foldDaumPostcode() {
         // iframe을 넣은 element를 안보이게 한다.
@@ -53,29 +53,29 @@
               addr = addr + extraAddr;
             }
             var param = {
-              "action": "postCode",
-              "addr": addr,
-              "postno": data.zonecode
+              "addr": addr
             };
 
+            console.log(param)
+
             try {
-              window.webkit.messageHandlers.iosScript.postMessage(JSON.stringify(param));
+              window.webkit.messageHandlers.getAddress_IOS.postMessage(JSON.stringify(param));
             } catch (err) {
               alert(err);
             }
-
+            
             return
           },
           // 우편번호 찾기 화면 크기가 조정되었을때 실행할 코드를 작성하는 부분. iframe을 넣은 element의 높이값을 조정한다.
           onresize: function(size) {
-            element_wrap.style.height = size.height + 'px';
+            address_screen_place.style.height = size.height + 'px';
           },
           width: '100%',
           height: '100%'
-        }).embed(element_wrap);
+        }).embed(address_screen_place);
 
         // iframe을 넣은 element를 보이게 한다.
-        element_wrap.style.display = 'block';
+        address_screen_place.style.display = 'block';
       }
     </script>
   </body>
